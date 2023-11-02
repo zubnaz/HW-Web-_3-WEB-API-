@@ -39,7 +39,7 @@ namespace BusinessLogic.Services
         public async Task Delete(int id)
         {
             var auto = Adc.Autos.Find(id);
-            if (auto == null) return;
+            if (auto == null) throw new HttpException($"Auto with ID <{id}> not found!", HttpStatusCode.NotFound);
             Adc.Autos.Remove(auto);
             await Adc.SaveChangesAsync();
         }
@@ -55,7 +55,7 @@ namespace BusinessLogic.Services
             return Task.Run(() =>
             {
                 var list = Adc.Autos.Include(a => a.Color).ToList();
-                if (list == null) throw new Exception("Error");
+                if (list == null) throw new HttpException("List is empty!",HttpStatusCode.NotFound);
                 return Im.Map<List<AutoDtos>>(list);
             });
         }
@@ -63,14 +63,14 @@ namespace BusinessLogic.Services
         public AutoDtos? Get(int id)
         {
             var auto = Adc.Autos.Include(a => a.Color).ToList().Find(a => a.Id == id);
-            if (auto == null) throw new Exception("Error");
+            if (auto == null) throw new HttpException($"Auto with ID <{id}> not found!", HttpStatusCode.NotFound);
             return Im.Map<AutoDtos>(auto);
         }
 
         public List<AutoDtos> Get()
         {
             var list = Adc.Autos.Include(a => a.Color).ToList();
-            if (list == null) throw new Exception("Error");
+            if (list == null) throw new HttpException("List is empty!", HttpStatusCode.NotFound);
             return Im.Map<List<AutoDtos>>(list);
         }
 
@@ -79,7 +79,7 @@ namespace BusinessLogic.Services
             return Task.Run(() =>
             {
                 var auto = Adc.Autos.Include(a => a.Color).ToList().Find(a => a.Id == id);
-                if (auto == null) throw new Exception("Error");
+                if (auto == null) throw new HttpException($"Auto with ID <{id}> not found!", HttpStatusCode.NotFound);
                 return Im.Map<AutoDtos>(auto);
             });
         }

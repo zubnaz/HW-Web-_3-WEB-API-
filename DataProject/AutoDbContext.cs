@@ -1,4 +1,5 @@
 ﻿using DataProject.Data.Entitys;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataProject
 {
-    public class AutoDbContext : DbContext
+    public class AutoDbContext : IdentityDbContext<User>
     {
         public DbSet<Auto> Autos { get; set; }
         public DbSet<Color> Colors { get; set; }

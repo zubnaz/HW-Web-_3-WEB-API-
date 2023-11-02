@@ -1,5 +1,6 @@
 ﻿using BusinessLogic.ApiModels.Autos;
 using BusinessLogic.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,10 +12,10 @@ namespace HW_Web__3_WEB_API_.Controllers
     {
         public AutosController(IAutosServices ias)
         {
-            Ias = ias;
+            iAS = ias;
         }
 
-        private readonly IAutosServices Ias;
+        private readonly IAutosServices iAS;
 
 
 
@@ -22,41 +23,43 @@ namespace HW_Web__3_WEB_API_.Controllers
 
         public IActionResult Get()
         {
-            return Ok(Ias.Get());
+            return Ok(iAS.Get());
         }
         [HttpGet("all-async")]
         public async Task<IActionResult> GetAsync()
         {
-            return Ok(await Ias.GetAsync());
+            return Ok(await iAS.GetAsync());
         }
         [HttpGet("{id}")]
         public IActionResult GetByIdFromRoute([FromRoute] int id)
         {
-            return Ok(Ias.Get(id));
+            return Ok(iAS.Get(id));
         }
         [HttpGet("{id}-async")]
         public async Task<IActionResult> GetByIdFromRouteAsync([FromRoute] int id)
         {
 
-            return Ok(await Ias.GetAsync(id));
+            return Ok(await iAS.GetAsync(id));
         }
-
+        [Authorize]
         [HttpPost("Create")]
         public async Task<IActionResult> Add(CreateAutoModel auto)
         {
-            await Ias.Create(auto);
+            await iAS.Create(auto);
             return Ok();
         }
+        [Authorize]
         [HttpPut("Edit")]
         public async Task<IActionResult> Update(EditAutoModel auto)
         {
-            await Ias.Edit(auto);
+            await iAS.Edit(auto);
             return Ok();
         }
+        [Authorize]
         [HttpDelete("Delete")]
         public async Task<IActionResult> Delete(int id)
         {
-            await Ias.Delete(id);
+            await iAS.Delete(id);
             return Ok();
         }
     }

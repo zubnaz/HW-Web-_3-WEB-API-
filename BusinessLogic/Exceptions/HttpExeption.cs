@@ -9,13 +9,13 @@ namespace BusinessLogic.Exceptions
 {
 
 	[Serializable]
-	public class HttpsException : Exception
+	public class HttpException : Exception
 	{
         public HttpStatusCode Status { get; set; }
-        public HttpsException() { this.Status = HttpStatusCode.InternalServerError; }
-		public HttpsException(string message, HttpStatusCode status) : base(message) { this.Status = status; }
-		public HttpsException(string message, Exception inner, HttpStatusCode status) : base(message, inner) { this.Status = status; }
-		protected HttpsException(
+        public HttpException() { this.Status = HttpStatusCode.InternalServerError; }
+		public HttpException(string message, HttpStatusCode status) : base(message) { this.Status = status; }
+		public HttpException(string message, Exception inner, HttpStatusCode status) : base(message, inner) { this.Status = status; }
+		protected HttpException(
 		  System.Runtime.Serialization.SerializationInfo info,
 		  System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
 	}
