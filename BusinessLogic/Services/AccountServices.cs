@@ -5,6 +5,7 @@ using BusinessLogic.Data.Entitys;
 using Microsoft.AspNetCore.Identity;
 using System.Net;
 using BusinessLogic.Dtos;
+using Microsoft.AspNetCore.Http;
 
 namespace BusinessLogic.Services
 {
@@ -69,16 +70,20 @@ namespace BusinessLogic.Services
             }
             else
             {
-                user = new User()
-                {
-                    UserName = raba.EmailAddress,
-                    Email = raba.EmailAddress,
-                    PhoneNumber = raba.PhoneNumber,
-                    BirthDate = raba.Birthdate
-                };
-                userManager.AddToRoleAsync(user, raba.Role);
+                if (await getUser() != null && await userManager.IsInRoleAsync(await getUser(), RolesAccount.Role.Admin.ToString())){
+                    user = new User()
+                    {
+                        UserName = raba.EmailAddress,
+                        Email = raba.EmailAddress,
+                        PhoneNumber = raba.PhoneNumber,
+                        BirthDate = raba.Birthdate
+                    };
+                    userManager.AddToRoleAsync(user, raba.Role);
+                }
+                else
+                    throw new HttpException("You isn't admin!", HttpStatusCode.Forbidden);
             }
-            var result = await userManager.CreateAsync(user, ra.Password);
+            var result = await userManager.CreateAsync(user, ra == null? raba.Password : ra.Password);
            
             if(!result.Succeeded) {
                 throw new HttpException(string.Join(", ", result.Errors.Select(e => e.Description)),HttpStatusCode.BadRequest);

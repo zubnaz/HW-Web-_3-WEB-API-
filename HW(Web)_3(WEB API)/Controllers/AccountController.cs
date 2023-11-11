@@ -16,14 +16,13 @@ namespace HW_Web__3_WEB_API_.Controllers
             this.iAS = iAS;
         }
 
-        [Authorize(Roles = "Moderator,User")]
         [HttpPost("registered")]
         public async Task<IActionResult> Register(RegisterAccount ra) 
         {
             await iAS.Register(ra:ra);
             return Ok();
         }
-        [Authorize(Roles = "Admin")]
+        
         [HttpPost("registered-admin")]
         public async Task<IActionResult> Register(RegisterAccountByAdmin raba)
         {
