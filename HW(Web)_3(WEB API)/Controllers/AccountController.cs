@@ -1,9 +1,6 @@
 ﻿using BusinessLogic.ApiModels.Accounts;
 using BusinessLogic.Interfaces;
-using DataProject.Data.Entitys;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HW_Web__3_WEB_API_.Controllers
@@ -18,18 +15,26 @@ namespace HW_Web__3_WEB_API_.Controllers
         {
             this.iAS = iAS;
         }
-        
+
+        [Authorize(Roles = "Moderator,User")]
         [HttpPost("registered")]
         public async Task<IActionResult> Register(RegisterAccount ra) 
         {
-            await iAS.Register(ra);
+            await iAS.Register(ra:ra);
+            return Ok();
+        }
+        [Authorize(Roles = "Admin")]
+        [HttpPost("registered-admin")]
+        public async Task<IActionResult> Register(RegisterAccountByAdmin raba)
+        {
+            await iAS.Register(raba:raba);
             return Ok();
         }
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginAccount la)
         {
-            await iAS.Login(la);
-            return Ok();
+            var key = await iAS.Login(la);
+            return Ok(key);
         }
         [Authorize]
         [HttpPatch("change-password")]

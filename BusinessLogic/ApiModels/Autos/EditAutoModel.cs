@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using DataProject.Data.Entitys;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BusinessLogic.ApiModels.Autos
+﻿namespace BusinessLogic.ApiModels.Autos
 {
     public class EditAutoModel
     {

@@ -1,6 +1,5 @@
 ﻿using BusinessLogic.ApiModels;
 using BusinessLogic.Exceptions;
-using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
 namespace HW_Web__3_WEB_API_.Middlewares

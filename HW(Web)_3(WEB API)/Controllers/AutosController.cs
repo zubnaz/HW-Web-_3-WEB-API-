@@ -1,7 +1,6 @@
 ﻿using BusinessLogic.ApiModels.Autos;
 using BusinessLogic.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HW_Web__3_WEB_API_.Controllers
@@ -41,21 +40,21 @@ namespace HW_Web__3_WEB_API_.Controllers
 
             return Ok(await iAS.GetAsync(id));
         }
-        [Authorize]
+        //[Authorize(Roles = "Admin,Moderator")]
         [HttpPost("Create")]
         public async Task<IActionResult> Add(CreateAutoModel auto)
         {
             await iAS.Create(auto);
             return Ok();
         }
-        [Authorize]
+        //[Authorize(Roles = "Admin,Moderator")]
         [HttpPut("Edit")]
         public async Task<IActionResult> Update(EditAutoModel auto)
         {
             await iAS.Edit(auto);
             return Ok();
         }
-        [Authorize]
+        //[Authorize(Roles = "Admin")]
         [HttpDelete("Delete")]
         public async Task<IActionResult> Delete(int id)
         {

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DataProject.Data.Entitys
+﻿namespace BusinessLogic.Data.Entitys
 {
     public class Auto
     {

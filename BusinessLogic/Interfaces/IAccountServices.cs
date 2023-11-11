@@ -1,17 +1,15 @@
 ﻿using BusinessLogic.ApiModels.Accounts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BusinessLogic.Data.Entitys;
+using BusinessLogic.Dtos;
 
 namespace BusinessLogic.Interfaces
 {
     public interface IAccountServices
     {
-        Task Register(RegisterAccount ra);
-        Task Login(LoginAccount la);
+        Task Register(RegisterAccount ra = null, RegisterAccountByAdmin raba = null);
+        Task<LoginResponse> Login(LoginAccount la);
         Task ChangePassword(ChangePassword cp);
         Task Exit();
+        Task<User> getUser();
     }
 }

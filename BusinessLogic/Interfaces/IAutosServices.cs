@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using DataProject.Data.Entitys;
-using System.Threading.Tasks;
-using BusinessLogic.ApiModels.Autos;
+﻿using BusinessLogic.ApiModels.Autos;
 using BusinessLogic.Dtos;
 
 namespace BusinessLogic.Interfaces

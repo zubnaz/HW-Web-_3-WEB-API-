@@ -1,24 +1,22 @@
 ﻿using BusinessLogic.ApiModels.Accounts;
 using BusinessLogic.Exceptions;
 using BusinessLogic.Interfaces;
-using DataProject.Data.Entitys;
-using Microsoft.AspNetCore.Http;
+using BusinessLogic.Data.Entitys;
 using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
+using BusinessLogic.Dtos;
 
 namespace BusinessLogic.Services
 {
     public class AccountServices : IAccountServices
     {
+        private readonly IJwtServices iJS;
         private readonly SignInManager<User> signInManager;
         private readonly UserManager<User> userManager;
-        public AccountServices(SignInManager<User> signInManager,UserManager<User> userManager)
+        private static string loginUser = string.Empty;
+        public AccountServices(IJwtServices iJS,SignInManager<User> signInManager,UserManager<User> userManager)
         {
+            this.iJS = iJS;
             this.signInManager = signInManager;
             this.userManager = userManager;
         }
@@ -37,32 +35,58 @@ namespace BusinessLogic.Services
         public async Task Exit()
         {
             await signInManager.SignOutAsync();
+            loginUser= string.Empty;
         }
 
-        public async Task Login(LoginAccount la)
+        public async Task<LoginResponse> Login(LoginAccount la)
         {
             var user = await userManager.FindByNameAsync(la.EmailAddress);
             if(user == null || !await userManager.CheckPasswordAsync(user,la.Password)) 
                 throw new HttpException("Invalid login or password :(", HttpStatusCode.BadRequest);
             await signInManager.SignInAsync(user,true);
-           
+            loginUser = la.EmailAddress;
+
+            return new LoginResponse() {
+                Token = iJS.CreateToken(iJS.GetClaims(user))
+            };
 
 
         }
 
-        public async Task Register(RegisterAccount ra)
+        public async Task Register(RegisterAccount ra = null, RegisterAccountByAdmin raba = null)
         {
-            var user = new User()
+            User user = null;
+            if (ra != null) { 
+            user = new User()
             {
                 UserName = ra.EmailAddress,
                 Email = ra.EmailAddress,
                 PhoneNumber = ra.PhoneNumber,
                 BirthDate = ra.Birthdate
+                
             };
-            var result = await userManager.CreateAsync(user,ra.Password);
+                userManager.AddToRoleAsync(user,RolesAccount.Role.User.ToString());
+            }
+            else
+            {
+                user = new User()
+                {
+                    UserName = raba.EmailAddress,
+                    Email = raba.EmailAddress,
+                    PhoneNumber = raba.PhoneNumber,
+                    BirthDate = raba.Birthdate
+                };
+                userManager.AddToRoleAsync(user, raba.Role);
+            }
+            var result = await userManager.CreateAsync(user, ra.Password);
+           
             if(!result.Succeeded) {
                 throw new HttpException(string.Join(", ", result.Errors.Select(e => e.Description)),HttpStatusCode.BadRequest);
             }
+        }
+        public async Task<User> getUser()
+        {
+            return await userManager.FindByNameAsync(loginUser);
         }
     }
 }

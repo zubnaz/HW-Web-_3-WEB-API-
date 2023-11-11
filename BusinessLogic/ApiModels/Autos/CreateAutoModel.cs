@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataProject.Data.Entitys;
-namespace BusinessLogic.ApiModels.Autos
+﻿namespace BusinessLogic.ApiModels.Autos
 {
     public class CreateAutoModel
     {

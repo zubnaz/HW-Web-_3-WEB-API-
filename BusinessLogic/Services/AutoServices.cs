@@ -1,87 +1,90 @@
 ﻿using AutoMapper;
 using BusinessLogic.ApiModels.Autos;
 using BusinessLogic.Dtos;
-using BusinessLogic.Exceptions;
-using BusinessLogic.Helpers;
 using BusinessLogic.Interfaces;
-using DataProject;
-using DataProject.Data;
-using DataProject.Data.Entitys;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using BusinessLogic.Data.Entitys;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
+using BusinessLogic.ApiModels.Accounts;
+using BusinessLogic.Exceptions;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLogic.Services
 {
     public class AutoServices : IAutosServices
     {
-        public AutoServices(AutoDbContext adc, IMapper im)
+        public AutoServices(IMapper im,IDataServices<Auto> ids,IAccountServices iAS, UserManager<User> userManager)
         {
-            Adc = adc;
             Im = im;
+            this.ids = ids;
+            this.iAS = iAS;
+            this.userManager = userManager;
         }
 
-        public AutoDbContext Adc { get; }
         private readonly IMapper Im;
+        private readonly IDataServices<Auto> ids;
+        private readonly IAccountServices iAS;
+        private readonly SignInManager<User> signInManager;
+        private readonly UserManager<User> userManager;
 
-       
-        
         public async Task Create(CreateAutoModel auto)
         {
-            Adc.Autos.Add(Im.Map<Auto>(auto));
-            await Adc.SaveChangesAsync();
+            var user = await iAS.getUser();
+            if(user == null || (!await userManager.IsInRoleAsync(user, RolesAccount.Role.Admin.ToString()) && !await userManager.IsInRoleAsync(user, RolesAccount.Role.Moderator.ToString()))) throw new HttpException("You haven't rights!", HttpStatusCode.Forbidden);
+            else  {
+                ids.Insert(Im.Map<Auto>(auto));
+                await ids.SaveAsync();  
+            }
         }
 
         public async Task Delete(int id)
         {
-            var auto = Adc.Autos.Find(id);
-            if (auto == null) throw new HttpException($"Auto with ID <{id}> not found!", HttpStatusCode.NotFound);
-            Adc.Autos.Remove(auto);
-            await Adc.SaveChangesAsync();
+            var user = await iAS.getUser();
+            if (user == null || !await userManager.IsInRoleAsync(user, RolesAccount.Role.Admin.ToString())) throw new HttpException("You isn't admin!", HttpStatusCode.Forbidden);
+            else
+            {
+                ids.Delete(id);
+                await ids.SaveAsync();
+            }
+
         }
 
         public async Task Edit(EditAutoModel auto)
         {
-            Adc.Autos.Update(Im.Map<Auto>(auto));
-            await Adc.SaveChangesAsync();
+            var user = await iAS.getUser();
+            if (user == null || (!await userManager.IsInRoleAsync(user, RolesAccount.Role.Admin.ToString()) && !await userManager.IsInRoleAsync(user, RolesAccount.Role.Moderator.ToString()))) throw new HttpException("You haven't rights!", HttpStatusCode.Forbidden);
+            else
+            {
+                ids.Update(Im.Map<Auto>(auto));
+                await ids.SaveAsync();
+            }           
         }
 
         public Task<List<AutoDtos>> GetAsync()
         {
-            return Task.Run(() =>
-            {
-                var list = Adc.Autos.Include(a => a.Color).ToList();
-                if (list == null) throw new HttpException("List is empty!",HttpStatusCode.NotFound);
-                return Im.Map<List<AutoDtos>>(list);
-            });
+            return Task.Run(async () => { 
+                var autos = await ids.GetAsync(includeProperties: "Color");
+                return Im.Map<List<AutoDtos>>(autos); 
+            });         
         }
 
         public AutoDtos? Get(int id)
         {
-            var auto = Adc.Autos.Include(a => a.Color).ToList().Find(a => a.Id == id);
-            if (auto == null) throw new HttpException($"Auto with ID <{id}> not found!", HttpStatusCode.NotFound);
-            return Im.Map<AutoDtos>(auto);
+            return Im.Map<AutoDtos>(ids.GetByID(id, includeProperties: "Color"));
         }
 
         public List<AutoDtos> Get()
         {
-            var list = Adc.Autos.Include(a => a.Color).ToList();
-            if (list == null) throw new HttpException("List is empty!", HttpStatusCode.NotFound);
-            return Im.Map<List<AutoDtos>>(list);
+             return Im.Map<List<AutoDtos>>(ids.Get(includeProperties: "Color")); 
         }
 
         public Task<AutoDtos>? GetAsync(int id)
         {
-            return Task.Run(() =>
-            {
-                var auto = Adc.Autos.Include(a => a.Color).ToList().Find(a => a.Id == id);
-                if (auto == null) throw new HttpException($"Auto with ID <{id}> not found!", HttpStatusCode.NotFound);
+            return Task.Run(async () => {
+                var auto = await ids.GetByIDAsync(id, includeProperties: "Color");
                 return Im.Map<AutoDtos>(auto);
             });
+            
         }
     }
 }
