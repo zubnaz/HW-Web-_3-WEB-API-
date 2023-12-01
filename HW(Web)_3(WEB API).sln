@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.7.34202.233
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.34114.132
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HW(Web)_3(WEB API)", "HW(Web)_3(WEB API)\HW(Web)_3(WEB API).csproj", "{B05D27CD-2F8E-4EC7-A785-D43747373F32}"
 EndProject

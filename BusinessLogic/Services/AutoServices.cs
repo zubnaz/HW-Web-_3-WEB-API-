@@ -30,11 +30,11 @@ namespace BusinessLogic.Services
         public async Task Create(CreateAutoModel auto)
         {
             var user = await iAS.getUser();
-            if(user == null || (!await userManager.IsInRoleAsync(user, RolesAccount.Role.Admin.ToString()) && !await userManager.IsInRoleAsync(user, RolesAccount.Role.Moderator.ToString()))) throw new HttpException("You haven't rights!", HttpStatusCode.Forbidden);
-            else  {
+            //if(user == null || (!await userManager.IsInRoleAsync(user, RolesAccount.Role.Admin.ToString()) && !await userManager.IsInRoleAsync(user, RolesAccount.Role.Moderator.ToString()))) throw new HttpException("You haven't rights!", HttpStatusCode.Forbidden);
+            //else  {
                 ids.Insert(Im.Map<Auto>(auto));
                 await ids.SaveAsync();  
-            }
+            //}
         }
 
         public async Task Delete(int id)

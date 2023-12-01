@@ -29,32 +29,37 @@ namespace HW_Web__3_WEB_API_.Controllers
         {
             return Ok(await iAS.GetAsync());
         }
-        [HttpGet("{id}")]
-        public IActionResult GetByIdFromRoute([FromRoute] int id)
+        [HttpGet("id")]
+        public IActionResult GetByIdFromRoute([FromQuery] int id)
         {
             return Ok(iAS.Get(id));
         }
-        [HttpGet("{id}-async")]
-        public async Task<IActionResult> GetByIdFromRouteAsync([FromRoute] int id)
+        [HttpGet("id-async")]
+        public async Task<IActionResult> GetByIdFromRouteAsync([FromQuery] int id)
         {
 
             return Ok(await iAS.GetAsync(id));
         }
-        //[Authorize(Roles = "Admin,Moderator")]
-        [HttpPost("Create")]
-        public async Task<IActionResult> Add(CreateAutoModel auto)
+        [Authorize(Roles = "Admin,Moderator")]
+        [HttpPost("")]
+        public async Task<IActionResult> Add([FromQuery]CreateAutoModel auto)
         {
             await iAS.Create(auto);
-            return Ok();
+            return Ok(auto);
         }
-        //[Authorize(Roles = "Admin,Moderator")]
+        /*public async Task<IActionResult> Add([FromQuery] CreateAutoModel auto)
+        {
+            //await iAS.Create(auto);
+            return Ok("Okay");
+        }*/
+        [Authorize(Roles = "Admin,Moderator")]
         [HttpPut("Edit")]
         public async Task<IActionResult> Update(EditAutoModel auto)
         {
             await iAS.Edit(auto);
             return Ok();
         }
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("Delete")]
         public async Task<IActionResult> Delete(int id)
         {
