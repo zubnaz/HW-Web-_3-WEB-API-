@@ -81,7 +81,7 @@ using (IServiceScope scope = app.Services.CreateScope())
     SeedExtensions.SeedAdmin(serviceProvider).Wait();
 }
 
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
