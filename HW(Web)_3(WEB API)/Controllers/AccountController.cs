@@ -10,6 +10,7 @@ namespace HW_Web__3_WEB_API_.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IAccountServices iAS;
+        //test
 
         public AccountController(IAccountServices iAS)
         {
