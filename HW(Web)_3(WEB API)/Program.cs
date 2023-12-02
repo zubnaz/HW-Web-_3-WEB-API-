@@ -16,8 +16,8 @@ string path,pathAzure;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-path = builder.Configuration.GetConnectionString("Connect")!;
-//pathAzure = builder.Configuration.GetConnectionString("ConnectAzure")!;
+//path = builder.Configuration.GetConnectionString("Connect")!;
+pathAzure = builder.Configuration.GetConnectionString("ConnectAzure")!;
 builder.Services.AddControllers();
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
@@ -34,7 +34,7 @@ builder.Services.AddSwaggerGen();
 
 
 
-builder.Services.AddDbContext<AutoDbContext>(opts => opts.UseSqlServer(path));
+builder.Services.AddDbContext<AutoDbContext>(opts => opts.UseSqlServer(pathAzure));
 builder.Services.AddScoped<IJwtServices, JwtServices>();
 builder.Services.AddScoped<IAutosServices, AutoServices>();
 builder.Services.AddScoped<IAccountServices, AccountServices>();
@@ -66,11 +66,11 @@ builder.Services.AddAuthentication(options =>
 
 var app = builder.Build();
 
-/*using(var scope = app.Services.CreateScope())
+using(var scope = app.Services.CreateScope())
 {
     var DB = scope.ServiceProvider.GetRequiredService<AutoDbContext>();
     DB.Database.Migrate();
-}*/
+}
 
 using (IServiceScope scope = app.Services.CreateScope())
 {
