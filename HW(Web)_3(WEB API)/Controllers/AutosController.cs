@@ -40,9 +40,9 @@ namespace HW_Web__3_WEB_API_.Controllers
 
             return Ok(await iAS.GetAsync(id));
         }
-        [Authorize(Roles = "Admin,Moderator")]
+        //[Authorize(Roles = "Admin,Moderator")]
         [HttpPost("")]
-        public async Task<IActionResult> Add([FromQuery]CreateAutoModel auto)
+        public async Task<IActionResult> Add([FromBody]CreateAutoModel auto)
         {
             await iAS.Create(auto);
             return Ok(auto);
