@@ -13,6 +13,7 @@ namespace BusinessLogic.Interfaces
         AutoDtos? Get(int id);
         Task<AutoDtos>? GetAsync(int id);
         List<AutoDtos> Sort(string type,string by);
+        List<AutoDtos> Find(string mark, string model, string price);
         
     }
 }

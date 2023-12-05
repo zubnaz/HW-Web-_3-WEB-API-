@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using BusinessLogic.ApiModels.Accounts;
 using BusinessLogic.Exceptions;
 using System.Net;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace BusinessLogic.Services
 {
@@ -105,6 +106,91 @@ namespace BusinessLogic.Services
                 else autos = Im.Map<List<AutoDtos>>(ids.Get()).OrderByDescending(a => a.Model).ToList();
             }
             return autos;
+        }
+
+        public List<AutoDtos> Find(string mark, string model, string price)
+        {
+            List<AutoDtos> autos = Im.Map<List<AutoDtos>>(ids.Get());
+            List<AutoDtos> findAutos=new List<AutoDtos>();
+           /*List<AutoDtos> Autos_ma = new List<AutoDtos>();
+            List<AutoDtos> Autos_mo = new List<AutoDtos>();
+            List<AutoDtos> Autos_pr = new List<AutoDtos>();
+            foreach(var auto in autos)
+            {
+                if(auto.Mark == mark) { Autos_ma.Add(auto); }
+                if(auto.Model == model) { Autos_mo.Add(auto); }
+                if(auto.Price== int.Parse(price)) { Autos_pr.Add(auto); }
+
+                if ((Autos_ma.Find(a => a.Mark == auto.Mark) != null) && (Autos_mo.Find(a => a.Model == auto.Model) != null) && (Autos_pr.Find(a => a.Price == auto.Price) != null))
+                    findAutos.Add(auto);
+            }*/
+            foreach (var auto in autos)
+            {
+                if (mark != "" && model!=""&&price!="")
+                {
+                    if(auto.Mark==mark && auto.Model ==model && auto.Price == int.Parse(price))
+                        findAutos.Add(auto);
+                }
+                else if(mark == "")
+                {
+                    if (model != "" && price != "")
+                    {
+                        if (auto.Model == model && auto.Price == int.Parse(price))
+                            findAutos.Add(auto);
+                    }
+                    else if(model !=""&&price == "")
+                    {
+                        if (auto.Model == model )
+                            findAutos.Add(auto);
+                    }
+                    else if(model == "" && price != "")
+                    {
+                        if (auto.Price == int.Parse(price))
+                            findAutos.Add(auto);
+                    }
+                   
+                }
+                else if (model== "")
+                {
+                    if (mark != "" && price != "")
+                    {
+                        if (auto.Mark == mark && auto.Price == int.Parse(price))
+                            findAutos.Add(auto);
+                    }
+                    else if (mark != "" && price == "")
+                    {
+                        if (auto.Mark == mark)
+                            findAutos.Add(auto);
+                    }
+                    else if (mark == "" && price != "")
+                    {
+                        if (auto.Price == int.Parse(price))
+                            findAutos.Add(auto);
+                    }
+
+                }
+                else if (price == "")
+                {
+                    if (mark != "" && model != "")
+                    {
+                        if (auto.Mark == mark && auto.Model == model)
+                            findAutos.Add(auto);
+                    }
+                    else if (mark != "" && model == "")
+                    {
+                        if (auto.Mark == mark)
+                            findAutos.Add(auto);
+                    }
+                    else if (mark == "" && model != "")
+                    {
+                        if (auto.Model == model)
+                            findAutos.Add(auto);
+                    }
+
+                }
+            }
+
+            return findAutos;
         }
     }
 }
