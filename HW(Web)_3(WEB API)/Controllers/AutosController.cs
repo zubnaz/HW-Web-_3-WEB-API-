@@ -1,7 +1,9 @@
 ﻿using BusinessLogic.ApiModels.Autos;
+using BusinessLogic.Exceptions;
 using BusinessLogic.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace HW_Web__3_WEB_API_.Controllers
 {
@@ -37,7 +39,6 @@ namespace HW_Web__3_WEB_API_.Controllers
         [HttpGet("id-async")]
         public async Task<IActionResult> GetByIdFromRouteAsync([FromQuery] int id)
         {
-
             return Ok(await iAS.GetAsync(id));
         }
         //[Authorize(Roles = "Admin,Moderator")]

@@ -11,6 +11,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using BusinessLogic.Seeders;
+using BusinessLogic.ApiModels.Autos;
+using FluentValidation.AspNetCore;
+using FluentValidation;
 
 string path,pathAzure;
 var builder = WebApplication.CreateBuilder(args);
@@ -33,12 +36,16 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddDbContext<AutoDbContext>(opts => opts.UseSqlServer(pathAzure));
 builder.Services.AddScoped<IJwtServices, JwtServices>();
 builder.Services.AddScoped<IAutosServices, AutoServices>();
 builder.Services.AddScoped<IAccountServices, AccountServices>();
 builder.Services.AddScoped(typeof(IDataServices<>),typeof(WorkWithData<>));
+//builder.Services.AddScoped<IValidator<CreateAutoModel>, AutoCreateValidator>();
+//builder.Services.AddScoped<IValidator<EditAutoModel>, AutoEditValidator>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 

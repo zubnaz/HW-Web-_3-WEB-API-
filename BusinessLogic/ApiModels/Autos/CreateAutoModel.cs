@@ -8,6 +8,7 @@
         public int Year { get; set; }
         public string Image { get; set; }
         public int ColorId { get; set; }
+        public string About { get; set; }
 
     }
 }
