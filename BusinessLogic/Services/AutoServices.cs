@@ -112,19 +112,20 @@ namespace BusinessLogic.Services
         {
             List<AutoDtos> autos = Im.Map<List<AutoDtos>>(ids.Get());
             List<AutoDtos> findAutos=new List<AutoDtos>();
-           /*List<AutoDtos> Autos_ma = new List<AutoDtos>();
-            List<AutoDtos> Autos_mo = new List<AutoDtos>();
-            List<AutoDtos> Autos_pr = new List<AutoDtos>();
-            foreach(var auto in autos)
-            {
-                if(auto.Mark == mark) { Autos_ma.Add(auto); }
-                if(auto.Model == model) { Autos_mo.Add(auto); }
-                if(auto.Price== int.Parse(price)) { Autos_pr.Add(auto); }
+            if (mark == "" && model == "" && price == "") return autos;
+                /*List<AutoDtos> Autos_ma = new List<AutoDtos>();
+                 List<AutoDtos> Autos_mo = new List<AutoDtos>();
+                 List<AutoDtos> Autos_pr = new List<AutoDtos>();
+                 foreach(var auto in autos)
+                 {
+                     if(auto.Mark == mark) { Autos_ma.Add(auto); }
+                     if(auto.Model == model) { Autos_mo.Add(auto); }
+                     if(auto.Price== int.Parse(price)) { Autos_pr.Add(auto); }
 
-                if ((Autos_ma.Find(a => a.Mark == auto.Mark) != null) && (Autos_mo.Find(a => a.Model == auto.Model) != null) && (Autos_pr.Find(a => a.Price == auto.Price) != null))
-                    findAutos.Add(auto);
-            }*/
-            foreach (var auto in autos)
+                     if ((Autos_ma.Find(a => a.Mark == auto.Mark) != null) && (Autos_mo.Find(a => a.Model == auto.Model) != null) && (Autos_pr.Find(a => a.Price == auto.Price) != null))
+                         findAutos.Add(auto);
+                 }*/
+                foreach (var auto in autos)
             {
                 if (mark != "" && model!=""&&price!="")
                 {
