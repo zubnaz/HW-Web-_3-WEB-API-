@@ -131,7 +131,7 @@ namespace DataProject
             adc.Entry(entityToUpdate).State = EntityState.Modified;
         }
 
-        public IEnumerable<TEntity> Sort(string type,string by)
+        /*public IEnumerable<TEntity> Sort(string type,string by)
         {
             IEnumerable<TEntity> auto;
             if (by == "price")
@@ -157,7 +157,7 @@ namespace DataProject
             {
                 return auto.Reverse();
             }
-        }
+        }*/
     }
 }
     /*public class WorkWithData : IDataServices

@@ -18,7 +18,7 @@ namespace BusinessLogic.Interfaces
         Task SaveAsync();
          TEntity GetByID(object id, string includeProperties = "");
         Task<TEntity> GetByIDAsync(object id, string includeProperties = "");
-        IEnumerable<TEntity> Sort(string type,string by);
+       //IEnumerable<TEntity> Sort(string type,string by);
         
 
 
