@@ -1,5 +1,7 @@
-﻿using BusinessLogic.Interfaces;
+﻿using BusinessLogic.Data.Entitys;
+using BusinessLogic.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Linq.Expressions;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
@@ -12,16 +14,13 @@ namespace DataProject
 
         public WorkWithData(AutoDbContext adc)
         {
-            this.adc = adc;
             this.dbSet = adc.Set<TEntity>();
         }
         public async Task SaveAsync()
         {
            await this.adc.SaveChangesAsync();
         }
-        public virtual Task<IEnumerable<TEntity>> GetAsync(
-            Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+        public virtual Task<IEnumerable<TEntity>> GetAsync(Expression<Func<TEntity, bool>> filter = null,Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "")
         {
             return Task.Run(() => {
@@ -130,6 +129,34 @@ namespace DataProject
         {
             dbSet.Attach(entityToUpdate);
             adc.Entry(entityToUpdate).State = EntityState.Modified;
+        }
+
+        public IEnumerable<TEntity> Sort(string type,string by)
+        {
+            IEnumerable<TEntity> auto;
+            if (by == "price")
+            {
+                IQueryable<TEntity> query = dbSet;
+                
+                //auto = (IEnumerable<TEntity>)query.OrderBy(
+                
+            }
+            else if (by == "mark")
+            {
+                 auto = (IEnumerable<TEntity>)adc.Autos.OrderBy(a => a.Mark);
+            }
+            else
+            {
+                 auto = (IEnumerable<TEntity>)adc.Autos.OrderBy(a => a.Model);
+            }
+            if (type == "up")
+            {
+                return auto;
+            }
+            else
+            {
+                return auto.Reverse();
+            }
         }
     }
 }

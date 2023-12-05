@@ -86,5 +86,25 @@ namespace BusinessLogic.Services
             });
             
         }
+
+        public List<AutoDtos> Sort(string type,string by)
+        {
+            List<AutoDtos> autos;
+            if (by =="price")
+            {
+                if(type =="up") autos = Im.Map<List<AutoDtos>>(ids.Get()).OrderBy(a=>a.Price).ToList();
+                else autos = Im.Map<List<AutoDtos>>(ids.Get()).OrderByDescending(a=>a.Price).ToList();
+            }
+            else if(by == "mark")
+            {
+                if (type == "up") autos = Im.Map<List<AutoDtos>>(ids.Get()).OrderBy(a => a.Mark).ToList();
+                else autos = Im.Map<List<AutoDtos>>(ids.Get()).OrderByDescending(a => a.Mark).ToList();
+            }
+            else {
+                if (type == "up") autos = Im.Map<List<AutoDtos>>(ids.Get()).OrderBy(a => a.Model).ToList();
+                else autos = Im.Map<List<AutoDtos>>(ids.Get()).OrderByDescending(a => a.Model).ToList();
+            }
+            return autos;
+        }
     }
 }

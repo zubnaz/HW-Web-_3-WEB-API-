@@ -12,6 +12,7 @@ namespace BusinessLogic.Interfaces
         Task<List<AutoDtos>> GetAsync();
         AutoDtos? Get(int id);
         Task<AutoDtos>? GetAsync(int id);
+        List<AutoDtos> Sort(string type,string by);
         
     }
 }

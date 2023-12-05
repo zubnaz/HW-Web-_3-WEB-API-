@@ -47,6 +47,11 @@ namespace HW_Web__3_WEB_API_.Controllers
             await iAS.Create(auto);
             return Ok(auto);
         }
+        [HttpGet("sort")]
+        public IActionResult Sort([FromQuery] string type,string by)
+        {
+            return Ok(iAS.Sort(type,by));
+        }
         /*public async Task<IActionResult> Add([FromQuery] CreateAutoModel auto)
         {
             //await iAS.Create(auto);
