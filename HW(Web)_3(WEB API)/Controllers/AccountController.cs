@@ -19,8 +19,8 @@ namespace HW_Web__3_WEB_API_.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterAccount ra) 
         {
-            //await iAS.Register(ra:ra);
-            return Ok(ra);
+            await iAS.Register(ra:ra);
+            return Ok();
         }
         
         [HttpPost("register-admin")]
