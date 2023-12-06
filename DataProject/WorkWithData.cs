@@ -14,6 +14,7 @@ namespace DataProject
 
         public WorkWithData(AutoDbContext adc)
         {
+            this.adc = adc;
             this.dbSet = adc.Set<TEntity>();
         }
         public async Task SaveAsync()

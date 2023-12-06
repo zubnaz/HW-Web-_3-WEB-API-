@@ -16,14 +16,14 @@ namespace HW_Web__3_WEB_API_.Controllers
             this.iAS = iAS;
         }
 
-        [HttpPost("registered")]
+        [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterAccount ra) 
         {
-            await iAS.Register(ra:ra);
-            return Ok();
+            //await iAS.Register(ra:ra);
+            return Ok(ra);
         }
         
-        [HttpPost("registered-admin")]
+        [HttpPost("register-admin")]
         public async Task<IActionResult> Register([FromBody] RegisterAccountByAdmin raba)
         {
             await iAS.Register(raba:raba);

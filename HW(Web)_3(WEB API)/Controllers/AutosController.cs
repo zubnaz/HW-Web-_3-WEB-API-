@@ -45,7 +45,7 @@ namespace HW_Web__3_WEB_API_.Controllers
         [HttpPost("")]
         public async Task<IActionResult> Add([FromBody]CreateAutoModel auto)
         {
-            await iAS.Create(auto);
+            //await iAS.Create(auto);
             return Ok(auto);
         }
         [HttpGet("sort")]
@@ -65,7 +65,7 @@ namespace HW_Web__3_WEB_API_.Controllers
         }*/
         [Authorize(Roles = "Admin,Moderator")]
         [HttpPut("Edit")]
-        public async Task<IActionResult> Update(EditAutoModel auto)
+        public async Task<IActionResult> Update([FromBody] EditAutoModel auto)
         {
             await iAS.Edit(auto);
             return Ok();
