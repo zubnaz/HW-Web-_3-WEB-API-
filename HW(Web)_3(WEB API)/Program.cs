@@ -39,7 +39,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
 
-builder.Services.AddDbContext<AutoDbContext>(opts => opts.UseSqlServer(path));
+builder.Services.AddDbContext<AutoDbContext>(opts => opts.UseSqlServer(pathAzure));
 builder.Services.AddScoped<IJwtServices, JwtServices>();
 builder.Services.AddScoped<IAutosServices, AutoServices>();
 builder.Services.AddScoped<IAccountServices, AccountServices>();
