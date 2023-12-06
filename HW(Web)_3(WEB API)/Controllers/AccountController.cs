@@ -15,7 +15,7 @@ namespace HW_Web__3_WEB_API_.Controllers
         {
             this.iAS = iAS;
         }
-
+        
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterAccount ra) 
         {
