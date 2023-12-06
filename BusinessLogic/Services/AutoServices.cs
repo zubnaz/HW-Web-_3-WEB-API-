@@ -115,7 +115,7 @@ namespace BusinessLogic.Services
             List<AutoDtos> autos = Im.Map<List<AutoDtos>>(ids.Get());
             List<AutoDtos> findAutos=new List<AutoDtos>();
             if (mark == "" && model == "" && price == "") return autos;
-                /*List<AutoDtos> Autos_ma = new List<AutoDtos>();
+                List<AutoDtos> Autos_ma = new List<AutoDtos>();
                  List<AutoDtos> Autos_mo = new List<AutoDtos>();
                  List<AutoDtos> Autos_pr = new List<AutoDtos>();
                  foreach(var auto in autos)
@@ -124,10 +124,10 @@ namespace BusinessLogic.Services
                      if(auto.Model == model) { Autos_mo.Add(auto); }
                      if(auto.Price== int.Parse(price)) { Autos_pr.Add(auto); }
 
-                     if ((Autos_ma.Find(a => a.Mark == auto.Mark) != null) && (Autos_mo.Find(a => a.Model == auto.Model) != null) && (Autos_pr.Find(a => a.Price == auto.Price) != null))
+                     if ((Autos_ma.Find(a => a.Id == auto.Id) != null) && (Autos_mo.Find(a => a.Id == auto.Id) != null) && (Autos_pr.Find(a => a.Id == auto.Id) != null))
                          findAutos.Add(auto);
-                 }*/
-                foreach (var auto in autos)
+                 }
+                /*foreach (var auto in autos)
             {
                 if (mark != "" && model!=""&&price!="")
                 {
@@ -191,7 +191,7 @@ namespace BusinessLogic.Services
                     }
 
                 }
-            }
+            }*/
 
             return findAutos;
         }
