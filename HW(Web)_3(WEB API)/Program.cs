@@ -24,7 +24,7 @@ pathAzure = builder.Configuration.GetConnectionString("ConnectAzure")!;
 builder.Services.AddControllers();
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
-
+//test
 builder.Services.AddIdentity<User,IdentityRole>(options =>
 {
     options.SignIn.RequireConfirmedAccount = true;
