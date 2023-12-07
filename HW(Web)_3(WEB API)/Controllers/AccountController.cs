@@ -48,5 +48,6 @@ namespace HW_Web__3_WEB_API_.Controllers
             await iAS.Exit();
             return Ok();
         }
+        //test
     }
 }
