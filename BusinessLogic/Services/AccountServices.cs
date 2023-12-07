@@ -46,9 +46,11 @@ namespace BusinessLogic.Services
                 throw new HttpException("Invalid login or password :(", HttpStatusCode.BadRequest);
             await signInManager.SignInAsync(user,true);
             loginUser = la.EmailAddress;
+            bool isAdmin = await userManager.IsInRoleAsync(user, RolesAccount.Role.Admin.ToString());
 
             return new LoginResponse() {
-                Token = iJS.CreateToken(iJS.GetClaims(user))
+                Token = iJS.CreateToken(iJS.GetClaims(user)),
+                isAdmin = isAdmin == true ? "Yes" : "No"
             };
 
 
