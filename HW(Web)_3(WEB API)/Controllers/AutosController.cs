@@ -63,14 +63,14 @@ namespace HW_Web__3_WEB_API_.Controllers
             //await iAS.Create(auto);
             return Ok("Okay");
         }*/
-        [Authorize(Roles = "Admin,Moderator")]
+        //[Authorize(Roles = "Admin,Moderator")]
         [HttpPut("Edit")]
         public async Task<IActionResult> Update([FromBody] EditAutoModel auto)
         {
             await iAS.Edit(auto);
             return Ok();
         }
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         [HttpDelete("Delete")]
         public async Task<IActionResult> Delete(int id)
         {
