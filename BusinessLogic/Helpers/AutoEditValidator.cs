@@ -12,13 +12,13 @@ namespace BusinessLogic.Helpers
     {
         public AutoEditValidator()
         {
-            RuleFor(x => x.Id).NotNull();
-            RuleFor(m => m.Mark).Length(3, 30).WithMessage("{PropertyName} length must be 3 - 30"); ;
-            RuleFor(m => m.Model).Length(1, 30).WithMessage("{PropertyName} length must be 1 - 30");
-            RuleFor(p => p.Price).GreaterThanOrEqualTo(0).WithMessage("{PropertyName} must be bigger that 0");
-            RuleFor(y => y.Year).InclusiveBetween(1920, DateTime.Now.Year).WithMessage("{PropertyName} must be 1920 - " + $"{DateTime.Now.Year}");
-            RuleFor(i => i.Image).Must(ImgValid).WithMessage("{PropertyName} must be URL");
-            RuleFor(a => a.About).Length(3, 100).WithMessage("{PropertyName} length must be 3 - 100");
+            RuleFor(x => x.Id).NotEmpty();
+            RuleFor(m => m.Mark).NotEmpty().Length(3, 30).WithMessage("{PropertyName} length must be 3 - 30"); ;
+            RuleFor(m => m.Model).NotEmpty().Length(1, 30).WithMessage("{PropertyName} length must be 1 - 30");
+            RuleFor(p => p.Price).NotEmpty().GreaterThanOrEqualTo(0).WithMessage("{PropertyName} must be bigger that 0");
+            RuleFor(y => y.Year).NotEmpty().InclusiveBetween(1920, DateTime.Now.Year).WithMessage("{PropertyName} must be 1920 - " + $"{DateTime.Now.Year}");
+            RuleFor(i => i.Image).NotEmpty().Must(ImgValid).WithMessage("{PropertyName} must be URL");
+            RuleFor(a => a.About).NotEmpty().Length(3, 100).WithMessage("{PropertyName} length must be 3 - 100");
         }
         public bool ImgValid(string? uri)
         {
