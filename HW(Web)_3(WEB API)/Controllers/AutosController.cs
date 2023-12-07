@@ -45,7 +45,7 @@ namespace HW_Web__3_WEB_API_.Controllers
         [HttpPost("")]
         public async Task<IActionResult> Add([FromBody]CreateAutoModel auto)
         {
-            //await iAS.Create(auto);
+            await iAS.Create(auto);
             return Ok(auto);
         }
         [HttpGet("sort")]
