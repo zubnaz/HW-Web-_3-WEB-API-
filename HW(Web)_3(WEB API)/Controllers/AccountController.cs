@@ -2,6 +2,8 @@
 using BusinessLogic.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace HW_Web__3_WEB_API_.Controllers
 {
@@ -20,14 +22,14 @@ namespace HW_Web__3_WEB_API_.Controllers
         public async Task<IActionResult> Register([FromBody] RegisterAccount ra) 
         {
             await iAS.Register(ra:ra);
-            return Ok();
+            return Ok("Ok");
         }
         
         [HttpPost("register-admin")]
         public async Task<IActionResult> Register([FromBody] RegisterAccountByAdmin raba)
         {
             await iAS.Register(raba:raba);
-            return Ok();
+            return Ok("Ok");
         }
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody]LoginAccount la)
@@ -40,7 +42,7 @@ namespace HW_Web__3_WEB_API_.Controllers
         public async Task<IActionResult> ChangePassword([FromBody] ChangePassword cp)
         {
             await iAS.ChangePassword(cp);
-            return Ok();
+            return Ok("Ok");
         }
         [HttpPost("exit")]
         public async Task<IActionResult> ExitAsync()
@@ -51,7 +53,8 @@ namespace HW_Web__3_WEB_API_.Controllers
         [HttpGet("check-signed")]
         public IActionResult CheckSigned()
         {
-            return Ok(iAS.IsSignIn());
+ 
+            return Ok(JsonSerializer.Serialize(iAS.IsSignIn()));
         }
         //test
     }
