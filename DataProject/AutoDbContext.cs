@@ -14,8 +14,8 @@ namespace DataProject
         {
             base.OnConfiguring(optionsBuilder);
 
-            optionsBuilder.UseSqlServer("Server=tcp:nazarko-server.database.windows.net,1433;Initial Catalog=kursova-base;Persist Security Info=False;User ID=Nazariy;Password=Nazar345;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
-            //optionsBuilder.UseSqlServer("Data Source=DESKTOP-H42B83O\\SQLEXPRESS;Initial Catalog = AutoDataBase_API_React;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
+            //optionsBuilder.UseSqlServer("Server=tcp:nazarko-server.database.windows.net,1433;Initial Catalog=kursova-base;Persist Security Info=False;User ID=Nazariy;Password=Nazar345;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+            optionsBuilder.UseSqlServer("Data Source=DESKTOP-H42B83O\\SQLEXPRESS;Initial Catalog = AutoDataBase_API_React;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
