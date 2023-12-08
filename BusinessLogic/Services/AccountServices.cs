@@ -27,7 +27,7 @@ namespace BusinessLogic.Services
             this.signInManager = signInManager;
             this.userManager = userManager;
         }
-
+        //test
         public async Task ChangePassword(ChangePassword cp)
         {
             if(cp.newPassword!=cp.repetitionNewPassword) { throw new HttpException("Incorrectly entered password!",HttpStatusCode.Conflict);}
