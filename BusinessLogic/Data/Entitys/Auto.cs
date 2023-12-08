@@ -21,7 +21,7 @@
         {
 
         }
-        public Auto(int _id, string _mark, string _model, double _price, int _year, string _image, int _idColor,string _about, bool isBought)
+        public Auto(int _id, string _mark, string _model, double _price, int _year, string _image, int _idColor,string _about)
         {
             Id = _id;
             Mark = _mark;
@@ -31,7 +31,7 @@
             Image = _image;
             ColorId = _idColor;
             About = _about;
-            IsBought = isBought;
+            IsBought = false;
         }
 
     }
