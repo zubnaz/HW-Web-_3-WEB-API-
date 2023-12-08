@@ -15,7 +15,6 @@
 
         public Color Color { get; set; }
         public string About { get; set; }
-        public bool IsBought { get; set; }
 
         public Auto()
         {
@@ -31,7 +30,6 @@
             Image = _image;
             ColorId = _idColor;
             About = _about;
-            IsBought = false;
         }
 
     }
