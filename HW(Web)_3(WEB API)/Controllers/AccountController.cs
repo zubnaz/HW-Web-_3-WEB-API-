@@ -65,7 +65,7 @@ namespace HW_Web__3_WEB_API_.Controllers
             return Ok(JsonSerializer.Serialize(await iAS.IsAdmin()));
         }
         [HttpPut("Buy")]
-        public async Task<IActionResult> Buy(int id)
+        /*public async Task<IActionResult> Buy(int id)
         {
             iAS.Buy(id);
             return Ok();
@@ -74,6 +74,6 @@ namespace HW_Web__3_WEB_API_.Controllers
         public async Task<IActionResult> GetUsersAuto()
         {
             return Ok(JsonSerializer.Serialize(await iAS.GetUsersAuto()));
-        }
+        }*/
     }
 }
