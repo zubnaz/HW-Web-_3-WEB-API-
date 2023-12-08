@@ -76,7 +76,7 @@ var app = builder.Build();
 using(var scope = app.Services.CreateScope())
 {
     var DB = scope.ServiceProvider.GetRequiredService<AutoDbContext>();
-    DB.Database.Migrate();
+    DB.Database.Migrate();    
 }
 
 using (IServiceScope scope = app.Services.CreateScope())
