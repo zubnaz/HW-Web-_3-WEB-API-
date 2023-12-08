@@ -12,5 +12,6 @@ namespace BusinessLogic.Interfaces
         Task Exit();
         Task<User> getUser();
         string IsSignIn();
+        Task<string> IsAdmin();
     }
 }

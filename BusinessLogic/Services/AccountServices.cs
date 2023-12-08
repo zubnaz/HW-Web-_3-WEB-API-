@@ -32,6 +32,12 @@ namespace BusinessLogic.Services
                 throw new HttpException(string.Join(", ", result.Errors.Select(e => e.Description)), HttpStatusCode.BadRequest);
             }
         }
+        public async Task<string> IsAdmin()
+        {
+            var user = await userManager.FindByNameAsync(loginUser);
+            bool isAdmin = await userManager.IsInRoleAsync(user, RolesAccount.Role.Admin.ToString());
+            return isAdmin ? "Yes" : "No";
+        }
         public string IsSignIn()
         {
             return loginUser==string.Empty?"False":"True";
