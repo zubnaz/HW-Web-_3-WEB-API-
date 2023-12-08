@@ -32,7 +32,10 @@ namespace BusinessLogic.Services
                 throw new HttpException(string.Join(", ", result.Errors.Select(e => e.Description)), HttpStatusCode.BadRequest);
             }
         }
-
+        public string IsSignIn()
+        {
+            return loginUser==string.Empty?"No":"Yes";
+        }
         public async Task Exit()
         {
             await signInManager.SignOutAsync();

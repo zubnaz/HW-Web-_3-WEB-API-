@@ -11,5 +11,6 @@ namespace BusinessLogic.Interfaces
         Task ChangePassword(ChangePassword cp);
         Task Exit();
         Task<User> getUser();
+        string IsSignIn();
     }
 }

@@ -46,7 +46,7 @@ namespace HW_Web__3_WEB_API_.Controllers
         public async Task<IActionResult> Add([FromBody]CreateAutoModel auto)
         {
             await iAS.Create(auto);
-            return Ok();
+            return Ok("Ok");
         }
         [HttpGet("sort")]
         public IActionResult Sort([FromQuery] string type,string by)
@@ -68,14 +68,14 @@ namespace HW_Web__3_WEB_API_.Controllers
         public async Task<IActionResult> Update([FromBody] EditAutoModel auto)
         {
             await iAS.Edit(auto);
-            return Ok();
+            return Ok("Ok");
         }
         //[Authorize(Roles = "Admin")]
         [HttpDelete("Delete")]
         public async Task<IActionResult> Delete(int id)
         {
             await iAS.Delete(id);
-            return Ok();
+            return Ok("Ok");
         }
     }
 }
