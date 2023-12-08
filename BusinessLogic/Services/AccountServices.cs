@@ -34,7 +34,7 @@ namespace BusinessLogic.Services
         }
         public string IsSignIn()
         {
-            return loginUser==string.Empty?"No":"Yes";
+            return loginUser==string.Empty?"False":"True";
         }
         public async Task Exit()
         {
