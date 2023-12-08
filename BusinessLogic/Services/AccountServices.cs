@@ -44,6 +44,11 @@ namespace BusinessLogic.Services
             bool isAdmin = await userManager.IsInRoleAsync(user, RolesAccount.Role.Admin.ToString());
             return isAdmin ? "Yes" : "No";
         }
+        public async Task<ICollection<BuyAutoModel>> GetUsersAuto()
+        {
+            var user = await getUser();
+            return user.Autos;
+        }
         public async void Buy(int id)
         {
             
