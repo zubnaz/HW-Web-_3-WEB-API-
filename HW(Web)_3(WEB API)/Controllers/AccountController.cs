@@ -64,6 +64,7 @@ namespace HW_Web__3_WEB_API_.Controllers
 
             return Ok(JsonSerializer.Serialize(await iAS.IsAdmin()));
         }
+        //test
         /* [HttpPut("Buy")]
          public async Task<IActionResult> Buy(int id)
          {
