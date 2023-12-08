@@ -12,7 +12,6 @@ namespace BusinessLogic.Helpers
             CreateMap<CreateAutoModel, Auto>().ReverseMap();
             CreateMap<EditAutoModel, Auto>().ReverseMap();
             CreateMap<AutoDtos,Auto>().ReverseMap();
-            CreateMap<BuyAutoModel, Auto>().ReverseMap();
         }
     }
 }

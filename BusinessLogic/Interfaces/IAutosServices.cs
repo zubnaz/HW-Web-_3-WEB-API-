@@ -14,6 +14,7 @@ namespace BusinessLogic.Interfaces
         Task<AutoDtos>? GetAsync(int id);
         List<AutoDtos> Sort(string type,string by);
         List<AutoDtos> Find(string mark, string model, string price);
+        void Buy(int id);
         
     }
 }

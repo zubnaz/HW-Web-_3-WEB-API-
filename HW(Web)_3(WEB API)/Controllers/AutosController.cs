@@ -77,5 +77,10 @@ namespace HW_Web__3_WEB_API_.Controllers
             await iAS.Delete(id);
             return Ok("Ok");
         }
+        public IActionResult Buy(int id)
+        {
+            iAS.Buy(id);
+            return Ok("Ok");
+        }
     }
 }

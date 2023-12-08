@@ -15,12 +15,13 @@
 
         public Color Color { get; set; }
         public string About { get; set; }
+        public bool IsBought { get; set; }
 
         public Auto()
         {
 
         }
-        public Auto(int _id, string _mark, string _model, double _price, int _year, string _image, int _idColor,string _about)
+        public Auto(int _id, string _mark, string _model, double _price, int _year, string _image, int _idColor,string _about, bool isBought)
         {
             Id = _id;
             Mark = _mark;
@@ -30,6 +31,7 @@
             Image = _image;
             ColorId = _idColor;
             About = _about;
+            IsBought = isBought;
         }
 
     }
