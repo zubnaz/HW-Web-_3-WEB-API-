@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.ApiModels.Accounts;
+using BusinessLogic.ApiModels.Autos;
 using BusinessLogic.Data.Entitys;
 using BusinessLogic.Dtos;
 
@@ -13,5 +14,6 @@ namespace BusinessLogic.Interfaces
         Task<User> getUser();
         string IsSignIn();
         Task<string> IsAdmin();
+        void Buy(Auto auto);
     }
 }

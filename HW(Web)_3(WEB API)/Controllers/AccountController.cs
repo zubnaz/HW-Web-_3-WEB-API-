@@ -1,4 +1,6 @@
 ﻿using BusinessLogic.ApiModels.Accounts;
+using BusinessLogic.ApiModels.Autos;
+using BusinessLogic.Data.Entitys;
 using BusinessLogic.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -61,6 +63,12 @@ namespace HW_Web__3_WEB_API_.Controllers
         {
 
             return Ok(JsonSerializer.Serialize(await iAS.IsAdmin()));
+        }
+        [HttpPut("Buy")]
+        public async Task<IActionResult> Buy(Auto auto)
+        {
+
+            return Ok();
         }
         //test
     }

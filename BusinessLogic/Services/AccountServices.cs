@@ -6,17 +6,21 @@ using Microsoft.AspNetCore.Identity;
 using System.Net;
 using BusinessLogic.Dtos;
 using Microsoft.AspNetCore.Http;
+using BusinessLogic.ApiModels.Autos;
+using AutoMapper;
 
 namespace BusinessLogic.Services
 {
     public class AccountServices : IAccountServices
     {
         private readonly IJwtServices iJS;
+        private readonly IMapper Im;
         private readonly SignInManager<User> signInManager;
         private readonly UserManager<User> userManager;
         private static string loginUser = string.Empty;
-        public AccountServices(IJwtServices iJS,SignInManager<User> signInManager,UserManager<User> userManager)
+        public AccountServices(IMapper im,IJwtServices iJS,SignInManager<User> signInManager,UserManager<User> userManager)
         {
+            Im = im;
             this.iJS = iJS;
             this.signInManager = signInManager;
             this.userManager = userManager;
@@ -34,9 +38,14 @@ namespace BusinessLogic.Services
         }
         public async Task<string> IsAdmin()
         {
-            var user = await userManager.FindByNameAsync(loginUser);
+            var user = await getUser();
             bool isAdmin = await userManager.IsInRoleAsync(user, RolesAccount.Role.Admin.ToString());
             return isAdmin ? "Yes" : "No";
+        }
+        public async void Buy(Auto auto)
+        {
+            var user = await getUser();
+            user.Autos.Add(Im.Map<BuyAutoModel>(auto));
         }
         public string IsSignIn()
         {
