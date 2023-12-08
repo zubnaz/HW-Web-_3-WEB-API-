@@ -48,7 +48,7 @@ namespace BusinessLogic.Services
         {
             
             var user = await getUser();
-            var auto = await ids.GetByIDAsync(id)
+            var auto = await ids.GetByIDAsync(id);
             user.Autos.Add(Im.Map<BuyAutoModel>(auto));
             ids.Delete(auto);
         }
