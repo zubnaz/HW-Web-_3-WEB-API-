@@ -14,6 +14,7 @@ namespace BusinessLogic.Interfaces
         Task<User> getUser();
         string IsSignIn();
         Task<string> IsAdmin();
-
+        /*void Buy(int id);
+        Task<ICollection<BuyAutoModel>> GetUsersAuto();*/
     }
 }

@@ -64,7 +64,16 @@ namespace HW_Web__3_WEB_API_.Controllers
 
             return Ok(JsonSerializer.Serialize(await iAS.IsAdmin()));
         }
-        
-        //test test tes
+        /*[HttpPut("Buy")]
+        public async Task<IActionResult> Buy(int id)//buy car
+        {
+            iAS.Buy(id);
+            return Ok();
+        }
+        [HttpGet("user-autos")]
+        public async Task<IActionResult> GetUsersAuto()
+        {
+            return Ok(JsonSerializer.Serialize(await iAS.GetUsersAuto()));
+        }*/
     }
 }
