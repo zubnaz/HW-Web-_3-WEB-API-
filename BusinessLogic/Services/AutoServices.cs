@@ -195,12 +195,12 @@ namespace BusinessLogic.Services
 
             return findAutos;
         }
-        public void Buy(int id)
+        public async void Buy(int id)
         {
-            var car = ids.GetByID(id, includeProperties: "Color");
+            var car = await ids.GetByIDAsync(id, includeProperties: "Color");
             car.IsBought = true;
             ids.Update(car);
-            ids.SaveAsync();
+            await ids.SaveAsync();
         }
         //testfwefwefwe
 
