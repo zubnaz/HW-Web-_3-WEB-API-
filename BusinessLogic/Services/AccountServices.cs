@@ -44,11 +44,13 @@ namespace BusinessLogic.Services
             bool isAdmin = await userManager.IsInRoleAsync(user, RolesAccount.Role.Admin.ToString());
             return isAdmin ? "Yes" : "No";
         }
-        public async void Buy(int auto)
+        public async void Buy(int id)
         {
             
             var user = await getUser();
-            user.Autos.Add(Im.Map<BuyAutoModel>(await ids.GetByIDAsync(auto)));
+            var auto = await ids.GetByIDAsync(id)
+            user.Autos.Add(Im.Map<BuyAutoModel>(auto));
+            ids.Delete(auto);
         }
         public string IsSignIn()
         {
