@@ -36,7 +36,7 @@ namespace BusinessLogic.Services
         {
             var user = await userManager.FindByNameAsync(loginUser);
             bool isAdmin = await userManager.IsInRoleAsync(user, RolesAccount.Role.Admin.ToString());
-            return isAdmin ? "True" : "False";
+            return isAdmin ? "Yes" : "No";
         }
         public string IsSignIn()
         {
