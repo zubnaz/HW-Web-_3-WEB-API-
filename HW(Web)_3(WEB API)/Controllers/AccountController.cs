@@ -65,10 +65,10 @@ namespace HW_Web__3_WEB_API_.Controllers
             return Ok(JsonSerializer.Serialize(await iAS.IsAdmin()));
         }
         [HttpPut("Buy")]
-        public async Task<IActionResult> Buy(Auto auto)
+        public async Task<IActionResult> Buy(int auto)
         {
 
-            return Ok();
+            return Ok(iAS.Buy(auto));
         }
         //test
     }

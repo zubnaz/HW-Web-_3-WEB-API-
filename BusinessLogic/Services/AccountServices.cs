@@ -15,12 +15,14 @@ namespace BusinessLogic.Services
     {
         private readonly IJwtServices iJS;
         private readonly IMapper Im;
+        private readonly IDataServices<Auto> ids;
         private readonly SignInManager<User> signInManager;
         private readonly UserManager<User> userManager;
         private static string loginUser = string.Empty;
-        public AccountServices(IMapper im,IJwtServices iJS,SignInManager<User> signInManager,UserManager<User> userManager)
+        public AccountServices(IMapper im, IDataServices<Auto> ids, IJwtServices iJS,SignInManager<User> signInManager,UserManager<User> userManager)
         {
             Im = im;
+            this.ids=ids;
             this.iJS = iJS;
             this.signInManager = signInManager;
             this.userManager = userManager;
@@ -42,10 +44,11 @@ namespace BusinessLogic.Services
             bool isAdmin = await userManager.IsInRoleAsync(user, RolesAccount.Role.Admin.ToString());
             return isAdmin ? "Yes" : "No";
         }
-        public async void Buy(Auto auto)
+        public async void Buy(int auto)
         {
+            
             var user = await getUser();
-            user.Autos.Add(Im.Map<BuyAutoModel>(auto));
+            user.Autos.Add(Im.Map<BuyAutoModel>(await ids.GetByIDAsync(auto)));
         }
         public string IsSignIn()
         {
