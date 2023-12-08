@@ -11,5 +11,6 @@
         public int ColorId { get; set; }
         public string ColorColorName { get; set; }
         public string About { get; set; }
+        public bool IsBought { get; set; }
     }
 }
